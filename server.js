@@ -21,7 +21,7 @@ const cloudinary = require('cloudinary').v2;
 const router = express.Router();
 // Enable CORS
 const corsOptions = {
-   origin: ['http://localhost:3000','http://localhost:3001'], // Allow requests from both Vercel and localhost
+   origin: ['https://tankwa.vercel.app','http://localhost:3001'], // Allow requests from both Vercel and localhost
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
