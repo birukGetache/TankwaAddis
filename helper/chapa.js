@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
   try {
     const { promocode, destinationID, email, firstName, lastName, phone, numberOfPassengers } = req.body;
     const numberOfPassengersInt = parseInt(numberOfPassengers, 10);
-    const result = Destination.find({ _id: destinationID });
+    const result = await Destination.findById(destinationID);
     console.log(result)
     const amount = result.price;
     console.log(amount)
