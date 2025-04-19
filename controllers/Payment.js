@@ -4,7 +4,6 @@ const {handlePaypalPayment} = require('../helper/paypalpayment')
 module.exports.payment = async (req, res) => {
         console.log(req.body);
         if(req.body.paymentMethod === 'Chapa'){
-          console.log
         try {
           return await chapaPayment(req, res);
         } catch (error) {

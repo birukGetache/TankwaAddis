@@ -1,12 +1,15 @@
 const axios = require('axios');
 const { createBooking, applyPromoCode } = require('../services/bookingService');
+const Destination = require('../models/Destination');
 
 module.exports = async (req, res) => {
   console.log("we are here biruk do not these is error")
   console.log(req.body)
   try {
-    const { promocode, amount, email, firstName, lastName, phone, numberOfPassengers } = req.body;
+    const { promocode, destinationID, email, firstName, lastName, phone, numberOfPassengers } = req.body;
     const numberOfPassengersInt = parseInt(numberOfPassengers, 10);
+    const result = Destination.find({ _id: destinationID });
+    const amount = result.price;
     const amountInt = parseInt(amount, 10);
 
     // Apply promo code logic
