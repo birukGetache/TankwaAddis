@@ -9,6 +9,7 @@ const User = require("./router/authRoutes.js");
 const multer = require("multer");
 const payment = require('./router/PostTransaction')
 const paypalReturn = require('./router/PaypalReturn.js')
+const checkPromocode = require('./router/promoRoutes.js')
 const BoatOwner = require('./router/BoatOwners.js')
 const Blogs = require('./router/Blogs.js')
 const destinationRouter = require('./router/Destination'); 
@@ -100,7 +101,7 @@ app.use('/destinations', destinationRouter);
 // // Delete a destination
 // app.delete('/destinations/:id', DeleteDestination);
 
-
+app.use('/checkPromo' , checkPromocode)
 
 // Use the router
 app.use("/", router);
