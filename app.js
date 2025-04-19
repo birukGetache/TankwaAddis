@@ -23,7 +23,7 @@ const jwt = require('jsonwebtoken'); // For token generation
 const router = express.Router();
 // Enable CORS
 const corsOptions = {
-   origin: 'http://localhost:3000', // Allow requests from both Vercel and localhost
+   origin: 'https://tankwa.vercel.app', // Allow requests from both Vercel and localhost
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
@@ -117,7 +117,7 @@ mongoose.connect(uri, {
         phone_number: phone,
         tx_ref: "chewatatest-" + Date.now(),
         callback_url: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
-        return_url: `http://localhost:3000/congratulation/${savedBooking._id}`,
+        return_url: `https://tankwa.vercel.app/congratulation/${savedBooking._id}`,
         customization: {
           title: "Payment for ",
           description: "I love online payments",
@@ -225,7 +225,7 @@ mongoose.connect(uri, {
       }
     ],
     mode:'payment',
-    success_url:`http://localhost:3000/congratulation/${savedBooking._id}`,
+    success_url:`https://tankwa.vercel.app/congratulation/${savedBooking._id}`,
     cancel_url:process.env.BASE_URL
    })
 
@@ -346,7 +346,7 @@ app.post('/paypal/return', async (req, res) => {
           res.status(201).json({
               message: "Booking created successfully",
               booking: savedBooking,
-              return_url: `http://localhost:3000/congratulation/${savedBooking._id}`,
+              return_url: `https://tankwa.vercel.app/congratulation/${savedBooking._id}`,
           });
       } else {
           throw new Error('Payment not approved');

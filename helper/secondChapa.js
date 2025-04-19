@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         phone_number: phone,
         tx_ref: "chewatatest-" + Date.now(),
         callback_url: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
-        return_url: `http://localhost:3000/congratulation/${savedBooking._id}`,
+        return_url: `https://tankwa.vercel.app/congratulation/${savedBooking._id}`,
         customization: {
           title: "Payment for ",
           description: "I love online payments",

@@ -41,7 +41,7 @@ module.exports.paymentReturn = async (req, res) => {
             res.status(201).json({
                 message: "Booking created successfully",
                 booking: savedBooking,
-                return_url: `http://localhost:3000/congratulation/${savedBooking._id}`,
+                return_url: `https://tankwa.vercel.app/congratulation/${savedBooking._id}`,
             });
         } else {
             throw new Error('Payment not approved');

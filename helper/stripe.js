@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
           }
         ],
         mode:'payment',
-        success_url:`http://localhost:3000/congratulation/${savedBooking._id}`,
+        success_url:`https://tankwa.vercel.app/congratulation/${savedBooking._id}`,
         cancel_url:process.env.BASE_URL
        })
     
