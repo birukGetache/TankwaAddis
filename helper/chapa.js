@@ -10,8 +10,9 @@ module.exports = async (req, res) => {
     const numberOfPassengersInt = parseInt(numberOfPassengers, 10);
     const result = Destination.find({ _id: destinationID });
     const amount = result.price;
+    console.log(amount)
     const amountInt = parseInt(amount, 10);
-
+    console.log(typeof amountInt)
     // Apply promo code logic
     const finalAmount = await applyPromoCode(promocode, amountInt, numberOfPassengersInt);
 
