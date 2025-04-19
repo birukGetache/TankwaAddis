@@ -12,7 +12,8 @@ const destinationSchema = new mongoose.Schema({
         default: {} // Default to an empty object
     },
     image: String, // Image remains a single string
-    public_id:String
+    public_id:String,
+    price: Number,
 });
 
 module.exports = mongoose.model('Destination', destinationSchema);

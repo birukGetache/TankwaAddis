@@ -58,11 +58,13 @@ const AddDestination =  async (req, res) => {
     // Parse titles and descriptions from the request body
     const titles = JSON.parse(req.body.titles); // Expecting a JSON string
     const descriptions = JSON.parse(req.body.descriptions); // Expecting a JSON string
+    const price = JSON.parse(req.body.price)
   console.log("I am looking for it")
     const newDestination = await Destination.create({
       image: result.secure_url,
       titles, 
       descriptions, 
+      price,
       public_id:result.public_id
     });
 
