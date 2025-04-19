@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
     const { promocode, destinationID, email, firstName, lastName, phone, numberOfPassengers } = req.body;
     const numberOfPassengersInt = parseInt(numberOfPassengers, 10);
     const result = Destination.find({ _id: destinationID });
+    console.log(result)
     const amount = result.price;
     console.log(amount)
     const amountInt = parseInt(amount, 10);
