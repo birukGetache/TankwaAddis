@@ -47,7 +47,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 
-const uri = "mongodb://localhost:27017/TankwaFinal"
+const uri = "mongodb+srv://burab1742:123@cluster0.wquid.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
