@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const Destination = require('../models/Destination');
 const cloudinary = require('cloudinary').v2;
+const { isValidObjectId, Types } = require('mongoose');
 const getAllDestinations = async (req, res) => {
-  console.log("we are here ok");
+  ("we are here ok");
   try {
     const destinations = await Destination.find();
-    console.log("destinaions", destinations);
+    ("destinaions", destinations);
     res.json(destinations);
   } catch (error) {
     res.status(500).send(error);
@@ -48,18 +49,18 @@ const getDestinationById = async (req, res) => {
 };
 
 const AddDestination =  async (req, res) => {
-  console.log(req.body);
+  (req.body);
   try {
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: 'uploads'
     });
 
-    console.log(result)
+    (result)
     // Parse titles and descriptions from the request body
     const titles = JSON.parse(req.body.titles); // Expecting a JSON string
     const descriptions = JSON.parse(req.body.descriptions); // Expecting a JSON string
     const price = JSON.parse(req.body.price)
-  console.log("I am looking for it")
+  ("I am looking for it")
     const newDestination = await Destination.create({
       image: result.secure_url,
       titles, 
@@ -74,11 +75,12 @@ const AddDestination =  async (req, res) => {
       imageUrl: newDestination.image
     });
   } catch (error) {
-    console.log(error)
+    (error)
     res.status(500).send(error);
   }
 }
 const updateDestination = async (req, res) => {
+  console.log("hellowee e")
   const { id } = req.params;
   let { public_id, image, titles, descriptions } = req.body;
 
@@ -89,7 +91,30 @@ const updateDestination = async (req, res) => {
   } catch (err) {
     return res.status(400).json({ error: 'Invalid JSON in titles or descriptions' });
   }
+  let objectId;
+  const cleanId = id.toString().trim();
+  if (!isValidObjectId(cleanId)) {
+    return res.status(400).json({ 
+      error: 'Invalid destination ID format',
+      details: `ID "${cleanId}" is not a valid ObjectId`
+    });
+  }
+  try {
+    objectId = Types.ObjectId.createFromHexString(cleanId);
+  } catch (err) {
+    console.log(err)
+    return res.status(400).json({ 
+      error: 'Invalid destination ID format',
+      details: `ID "${id}" cannot be cast to ObjectId`
+    });
+  }
 
+  // 3. Verify the destination exists first
+  const existingDestination = await Destination.findById(objectId);
+  if (!existingDestination) {
+    console.log("we are there")
+    return res.status(404).json({ error: 'Destination not found' });
+  }
   let uploadResult;
 
   if (req.file) {
@@ -98,7 +123,7 @@ const updateDestination = async (req, res) => {
         await cloudinary.uploader.destroy(public_id);
       }
 
-      console.log('Uploading to Cloudinary...');
+      ('Uploading to Cloudinary...');
       uploadResult = await cloudinary.uploader.upload(req.file.path, {
         folder: 'Destination',
       });
@@ -113,6 +138,7 @@ const updateDestination = async (req, res) => {
   }
 
   try {
+    console.log("we are here")
     const updateBlog = await Destination.findByIdAndUpdate(
       id,
       {
@@ -124,7 +150,7 @@ const updateDestination = async (req, res) => {
       { new: true }
     );
 
-    console.log('Updated destination:', updateBlog);
+    ('Updated destination:', updateBlog);
     res.json(updateBlog);
   } catch (err) {
     console.error(err);

@@ -6,7 +6,7 @@ const Booking = require("./router/Booking.js")
 const Blog = require("./models/Blog"); 
 const stripe = require("stripe")(process.env.STRIPE_SECURET_KEY)
 const User = require("./router/authRoutes.js"); 
-const multer = require("multer");
+const sessionRouter = require('./router/sessionRouter.js')
 const payment = require('./router/PostTransaction')
 const paypalReturn = require('./router/PaypalReturn.js')
 const checkPromocode = require('./router/promoRoutes.js')
@@ -23,7 +23,7 @@ const router = express.Router();
 // Enable CORS
 const corsOptions = {
    origin: ['https://tankwa.vercel.app','http://localhost:3001','http://localhost:3000'], // Allow requests from both Vercel and localhost
-  methods: ['GET', 'POST', 'PUT', 'DELEappTE'], // Allowed methods
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
 
@@ -47,7 +47,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 
-const uri = "mongodb+srv://burab1742:123@cluster0.wquid.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const uri = "mongodb://localhost:27017/TankwaFinal"
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -69,7 +69,7 @@ app.use('/booking', Booking);
 
 app.use("/api/blogs", Blogs);
 
- app.use('/boatowners',BoatOwner);
+app.use('/boatowners', BoatOwner);
 
 // // Update boat owner by ID
 // app.use('/boatowners/:id',UpdateBoatOwner);
@@ -87,7 +87,7 @@ app.use("/api/blogs", Blogs);
 
 
 //  app.use('/upload',UploadPostReal);
-
+app.use('/api/session' , sessionRouter)
 
 // app.use('/destinations', GetDestinations);
 
@@ -108,5 +108,5 @@ app.use("/", router);
 
 // Start the server
 app.listen(5000, () => {
-  console.log("Server running on port 5000");
+  ("Server running on port 5000");
 });

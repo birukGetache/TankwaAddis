@@ -33,7 +33,7 @@ const DeleteSponsers =  async (req, res) => {
   }
 
   const GetAllSponser =   async (req, res) => {
-    console.log("her")
+    ("her")
     try {
       const sponsors = await Sponsers.find();
       res.json(sponsors);
@@ -44,12 +44,12 @@ const DeleteSponsers =  async (req, res) => {
 
   const UploadPost =  async (req, res) => {
     const { name, url, description, twitter, facebook, instagram } = req.body;
-     console.log(req.body)
+     (req.body)
     try {
       let uploadResult;
       if (req.file) {
         try {
-          console.log('Uploading to Cloudinary...');
+          ('Uploading to Cloudinary...');
           
           // Attempt to upload the file to Cloudinary
            uploadResult = await cloudinary.uploader.upload(req.file.path, {
@@ -57,7 +57,7 @@ const DeleteSponsers =  async (req, res) => {
           });
           
           // Log the result if successful
-          console.log('Cloudinary Upload Success:', uploadResult);
+          ('Cloudinary Upload Success:', uploadResult);
           
         } catch (error) {
           // Log the error if the upload fails
@@ -65,7 +65,7 @@ const DeleteSponsers =  async (req, res) => {
         }
       }
       
-      console.log(uploadResult.public_id)
+      (uploadResult.public_id)
   
       const newSponsor = new Sponsers({
         name,
@@ -79,9 +79,9 @@ const DeleteSponsers =  async (req, res) => {
       });
   
 
-      console.log('Saving Sponsor to Database...');
+      ('Saving Sponsor to Database...');
       await newSponsor.save();
-      console.log('Sponsor Saved:', newSponsor);
+      ('Sponsor Saved:', newSponsor);
   
       res.status(201).json(newSponsor);
     } catch (err) {
@@ -91,7 +91,7 @@ const DeleteSponsers =  async (req, res) => {
   }
 
   const UploadPostReal = async (req, res) => {
-    console.log(req.body);
+    (req.body);
     try {
       const result = await cloudinary.uploader.upload(req.file.path, {
         folder: 'uploads'
@@ -119,15 +119,15 @@ const DeleteSponsers =  async (req, res) => {
  const UpdateSponser = async (req, res) => {
 
     const { id } = req.params;
-    console.log(id)
+    (id)
     const {  public_id  } = req.body;
     const {name, url, description, twitter, facebook, instagram , logo} = req.body;
-  console.log(req.body)
+  (req.body)
   let uploadResult;
     if (req.file) {
       try {
         cloudinary.uploader.destroy(public_id);
-        console.log('Uploading to Cloudinary...');
+        ('Uploading to Cloudinary...');
         
         // Attempt to upload the file to Cloudinary
          uploadResult = await cloudinary.uploader.upload(req.file.path, {
@@ -135,7 +135,7 @@ const DeleteSponsers =  async (req, res) => {
         });
         public_id = uploadResult.public_id
         // Log the result if successful
-        console.log('Cloudinary Upload Success:', uploadResult);
+        ('Cloudinary Upload Success:', uploadResult);
         
       } catch (error) {
         // Log the error if the upload fails
@@ -143,14 +143,14 @@ const DeleteSponsers =  async (req, res) => {
       }
     }
     try {
-      console.log(name)
+      (name)
       const updatedSponsor = await Sponsers.findByIdAndUpdate(
       
         id,
         { name,  logo: uploadResult ? uploadResult.secure_url : logo, url, description, twitter, facebook, instagram , public_id },
         { new: true }
       );
-      console.log(updatedSponsor)
+      (updatedSponsor)
       res.json(updatedSponsor);
     } catch (err) {
       res.status(500).json({ error: 'Failed to update sponsor' });

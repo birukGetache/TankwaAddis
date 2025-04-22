@@ -3,17 +3,17 @@ const { createBooking, applyPromoCode } = require('../services/bookingService');
 const Destination = require('../models/Destination');
 
 module.exports = async (req, res) => {
-  console.log("we are here biruk do not these is error")
-  console.log(req.body)
+  ("we are here biruk do not these is error")
+  (req.body)
   try {
     const { promocode, destinationID, email, firstName, lastName, phone, numberOfPassengers } = req.body;
     const numberOfPassengersInt = parseInt(numberOfPassengers, 10);
     const result = await Destination.findById(destinationID);
-    console.log(result)
+    (result)
     const amount = result.price;
-    console.log(amount)
+    (amount)
     const amountInt = parseInt(amount, 10);
-    console.log(typeof amountInt)
+    (typeof amountInt)
     // Apply promo code logic
     const finalAmount = await applyPromoCode(promocode, amountInt, numberOfPassengersInt);
 
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
         phone_number: phone,
         tx_ref: "chewatatest-" + Date.now(),
         callback_url: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
-        return_url: `https://tankwa.vercel.app/congratulation/${savedBooking._id}`,
+        return_url: `http://localhost:3000/congratulation/${savedBooking._id}`,
         customization: {
           title: "Payment for ",
           description: "I love online payments",

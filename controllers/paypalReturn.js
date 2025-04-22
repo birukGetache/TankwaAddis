@@ -4,7 +4,7 @@ const BoatOwner = require("../models/BoatOwner")
 module.exports.paymentReturn = async (req, res) => {
     try {
         const { tempBookingId, message } = req.body;
-    console.log("tempBookingId"+tempBookingId)
+    ("tempBookingId"+tempBookingId)
         // Step 1: Verify the payment with PayPal
   
         if (message === 'Payment Approved') {
@@ -47,7 +47,7 @@ module.exports.paymentReturn = async (req, res) => {
             throw new Error('Payment not approved');
         }
     } catch (error) {
-        console.log("Error handling PayPal return:", error);
+        ("Error handling PayPal return:", error);
         res.status(500).json({ error: error.message });
     }
   }

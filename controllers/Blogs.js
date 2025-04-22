@@ -49,16 +49,16 @@ const Blogs = async (req, res) => {
   const EditBlog  = async (req, res) => {
   
       const { id } = req.params;
-      console.log(id)
+      (id)
       const {  public_id  } = req.body;
-      console.log(req.body)
+      (req.body)
       const {title, description, image:imageUrl} = req.body;
 
     let uploadResult;
       if (req.file) {
         try {
           cloudinary.uploader.destroy(public_id);
-          console.log('Uploading to Cloudinary...');
+          ('Uploading to Cloudinary...');
           
           // Attempt to upload the file to Cloudinary
            uploadResult = await cloudinary.uploader.upload(req.file.path, {
@@ -66,7 +66,7 @@ const Blogs = async (req, res) => {
           });
           public_id = uploadResult.public_id
           // Log the result if successful
-          console.log('Cloudinary Upload Success:', uploadResult);
+          ('Cloudinary Upload Success:', uploadResult);
           
         } catch (error) {
           // Log the error if the upload fails
@@ -82,11 +82,11 @@ const Blogs = async (req, res) => {
           { title,  imageUrl: uploadResult ? uploadResult.secure_url : imageUrl , description ,public_id  },
           { new: true }
         );
-        console.log("updated blogs")
-        console.log(updateBlog)
+        ("updated blogs")
+        (updateBlog)
         res.json(updateBlog);
       } catch (err) {
-        console.log(err)
+        (err)
         res.status(500).json({ error: 'Failed to update Blogs' });
       }
     }
@@ -100,9 +100,37 @@ const Blogs = async (req, res) => {
             res.status(500).json({ error: 'Failed to delete sponsor' });
           }
     }
+    const Like =  async (req, res) => {
+      try {
+        const blog = await Blog.findById(req.params.id);
+        if (!blog) return res.status(404).json({ error: "Blog not found" });
+    
+        blog.likes += 1;
+        await blog.save();
+        res.json(blog);
+      } catch (error) {
+        res.status(500).json({ error: "Failed to like the blog post" });
+      }
+    }
+    const Comments = async (req, res) => {
+      try {
+        const { comment } = req.body;
+        const blog = await Blog.findById(req.params.id);
+        if (!blog) return res.status(404).json({ error: "Blog not found" });
+    
+        blog.comments.push(comment);
+        await blog.save();
+        res.json(blog);
+      } catch (error) {
+        (error)
+        res.status(500).json({ error: "Failed to add comment" });
+      }
+    }
   module.exports = {
     BlogPost,
     Blogs,
     EditBlog,
-    DeleteBlog
+    DeleteBlog,
+    Like,
+    Comments
   }

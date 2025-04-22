@@ -8,6 +8,7 @@ const {
     UpdateSponser
   } = require("../controllers/Sponser")
   const { upload } = require('../middleware/uploadMiddleware'); // Ensure you are importing the right one
+const verifyToken = require('../middleware/authMiddleware.js');
 
 const express = require('express');
 const router = express.Router();
@@ -17,8 +18,8 @@ const router = express.Router();
 
 // Define your routes
 router.get("/",  GetAllSponser)
-router.post("/", upload.single('logo'), UploadPost )
-router.delete("/:id" , DeleteSponsers)
-router.put("/:id",upload.single('logo'),UpdateSponser)
+router.post("/", verifyToken ,upload.single('logo'), UploadPost )
+router.delete("/:id" , verifyToken , DeleteSponsers)
+router.put("/:id", verifyToken ,upload.single('logo'),UpdateSponser)
 // router.post("/realupload" ,  uploads.single('image') , UploadPostReal)
 module.exports = router;

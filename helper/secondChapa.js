@@ -2,8 +2,8 @@ const axios = require('axios');
 const { createBooking, applyPromoCode } = require('../services/bookingService');
 var request = require('request');
 module.exports = async (req, res) => {
-  console.log("we are here biruk do not these is error")
-  console.log(req.body)
+  ("we are here biruk do not these is error")
+  (req.body)
   try {
     const { promocode, amount, email, firstName, lastName, phone, numberOfPassengers } = req.body;
     const numberOfPassengersInt = parseInt(numberOfPassengers, 10);
@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
       };
       request(options, function (error, response) {
         if (error) throw new Error(error);
-        console.log(response.body);
+        (response.body);
       });
     // res.status(201).json({
     //   message: "Booking created successfully, redirect to payment",

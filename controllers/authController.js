@@ -7,18 +7,18 @@ const User = require('../models/User');
 const LoginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log("we are now")
+    ("we are now")
     // Find user
     const user = await User.findOne({ username });
     if (!user) {
-      console.log("userr is not valid")
+      ("userr is not valid")
       return res.status(400).json({ message: 'Invalid credentials' });
     }
-     console.log(user)
+     (user)
     // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      console.log("not macht")
+      ("not macht")
       return res.status(400).json({ message: 'Invalid credentials' });
     }
     
@@ -38,27 +38,55 @@ const LoginUser = async (req, res) => {
 const PostUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    
-    console.log(username , password)
     // Check if user exists
     let user = await User.findOne({ username });
     if (user) {
-      console.log("user name exist")
+      ("user name exist")
       return res.status(400).json({ message: 'User already exists' });
     }
     
     // Create new user
+    ("these line pass the user already exists")
     user = new User({ username, password });
+  
     await user.save();
-   console.log(user.username)
+    
+   (user)
     
     res.status(201).json({ user: { username: user.username } });
   } catch (err) {
+    (err)
+    res.status(500).json({ message: err });
+  }
+}
+
+const LoginBoatOwner = async (req, res) => {
+  try {
+    const { name, password } = req.body;
+    // Check if user exists
+    let user = await User.findOne({ username });
+    if (user) {
+      ("user name exist")
+      return res.status(400).json({ message: 'User already exists' });
+    }
+    
+    // Create new user
+    ("these line pass the user already exists")
+    user = new User({ username, password });
+  
+    await user.save();
+    
+   (user)
+    
+    res.status(201).json({ user: { username: user.username } });
+  } catch (err) {
+    (err)
     res.status(500).json({ message: err });
   }
 }
 
 module.exports = {
   PostUser,
-  LoginUser
+  LoginUser,
+  LoginBoatOwner
 }

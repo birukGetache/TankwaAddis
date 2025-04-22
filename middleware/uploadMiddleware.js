@@ -38,4 +38,19 @@ const uploads = multer({
   },
 });
 
-module.exports = { upload, uploads };
+
+
+
+// Configure multer for file uploads
+const storateBoatOwner = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Directory to save uploaded images
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+const uploadImage = multer({ storage: storateBoatOwner });
+
+
+module.exports = { upload, uploads , uploadImage };

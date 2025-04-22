@@ -18,7 +18,7 @@ async function handlePaypalPayment(req, res) {
             }
         }
 
-        console.log(finalAmount);
+        (finalAmount);
         const tempBooking = new TempBooking({
             promocode,
             amount: finalAmount,
@@ -42,7 +42,7 @@ async function handlePaypalPayment(req, res) {
         return res.json({ url: urlpaypal });
 
     } catch (error) {
-        console.log("Error handling PayPal payment:", error);
+        ("Error handling PayPal payment:", error);
         res.status(500).json({ error: error.message });
     }
 }

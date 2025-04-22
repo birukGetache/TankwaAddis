@@ -8,6 +8,7 @@ const boatOwnerSchema = new mongoose.Schema({
   round: { type: Number, default: 0 },  
   size: { type: Number, default: 0 },  
   availability:{type: Boolean , default:true},
+  imageUrl:{type:String }
 }, { timestamps: true });
 
 module.exports = mongoose.model('BoatOwner', boatOwnerSchema);

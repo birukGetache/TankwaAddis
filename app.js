@@ -51,14 +51,14 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => ("Connected to MongoDB"))
   .catch(err => console.error("MongoDB connection error:", err));
 
   //post
   app.use("/PostTransaction", 
     async (req, res) => {
 
-    console.log(req.body);
+    (req.body);
     if(req.body.paymentMethod === 'Chapa'){
     try {
       //paypal for sell 
@@ -89,7 +89,7 @@ mongoose.connect(uri, {
       else{
         finalAmount = amountInt*numberOfPassengersInt;
       }
-    console.log(finalAmount)
+    (finalAmount)
       // Step 3: Fetch all BoatOwners and compare their rounds
       const boatOwners = await BoatOwner.find();
       const minRound = Math.min(...boatOwners.map(owner => owner.round));
@@ -156,7 +156,7 @@ mongoose.connect(uri, {
       });
   
     } catch (error) {
-      console.log("Error handling payment:", error);
+      ("Error handling payment:", error);
       res.status(500).json({ error: error.message });
     }} 
     else if(req.body.paymentMethod === 'stripe'){
@@ -189,7 +189,7 @@ mongoose.connect(uri, {
       else{
         finalAmount = amountInt*numberOfPassengersInt;
       }
-    console.log(finalAmount)
+    (finalAmount)
       // Step 3: Fetch all BoatOwners and compare their rounds
       const boatOwners = await BoatOwner.find();
       const minRound = Math.min(...boatOwners.map(owner => owner.round));
@@ -232,7 +232,7 @@ mongoose.connect(uri, {
    res.json({ checkoutUrl: session.url });
   
     } catch (error) {
-      console.log("Error handling payment:", error);
+      ("Error handling payment:", error);
       res.status(500).json({ error: error.message });
     }} 
     else if(req.body.paymentMethod === 'paypal'){
@@ -266,7 +266,7 @@ mongoose.connect(uri, {
         else{
           finalAmount = amountInt*numberOfPassengersInt;
         }
-      console.log(finalAmount)
+      (finalAmount)
       const tempBooking = new TempBooking({
         promocode,
         amount: finalAmount,
@@ -298,7 +298,7 @@ mongoose.connect(uri, {
        
     
       } catch (error) {
-        console.log("Error handling payment:", error);
+        ("Error handling payment:", error);
         res.status(500).json({ error: error.message });
       }
     }
@@ -309,7 +309,7 @@ mongoose.connect(uri, {
 app.post('/paypal/return', async (req, res) => {
   try {
       const { tempBookingId, message } = req.body;
-  console.log("tempBookingId"+tempBookingId)
+  ("tempBookingId"+tempBookingId)
       // Step 1: Verify the payment with PayPal
 
       if (message === 'Payment Approved') {
@@ -352,7 +352,7 @@ app.post('/paypal/return', async (req, res) => {
           throw new Error('Payment not approved');
       }
   } catch (error) {
-      console.log("Error handling PayPal return:", error);
+      ("Error handling PayPal return:", error);
       res.status(500).json({ error: error.message });
   }
 });
@@ -711,19 +711,19 @@ router.get('/sponser', async (req, res) => {
 // Add a new sponsor with image upload
 
  router.post('/sponser', upload.single('logo'), async (req, res) => {
-  console.log('Request Body:', req.body); // Log the request body
-  console.log('Uploaded File:', req.file); // Log the uploaded file
+  ('Request Body:', req.body); // Log the request body
+  ('Uploaded File:', req.file); // Log the uploaded file
 
   const { name, url, description, twitter, facebook, instagram } = req.body;
 
   try {
     let uploadResult;
     if (req.file) {
-      console.log('Uploading to Cloudinary...');
+      ('Uploading to Cloudinary...');
       uploadResult = await cloudinary.uploader.upload(req.file.path, {
         folder: 'sponsors', // Optional: specify a folder in Cloudinary
       });
-      console.log('Cloudinary Upload Result:', uploadResult);
+      ('Cloudinary Upload Result:', uploadResult);
     }
 
     const newSponsor = new Sponsor({
@@ -736,9 +736,9 @@ router.get('/sponser', async (req, res) => {
       instagram,
     });
 
-    console.log('Saving Sponsor to Database...');
+    ('Saving Sponsor to Database...');
     await newSponsor.save();
-    console.log('Sponsor Saved:', newSponsor);
+    ('Sponsor Saved:', newSponsor);
 
     res.status(201).json(newSponsor);
   } catch (err) {
@@ -776,7 +776,7 @@ router.delete('/sponser/:id', async (req, res) => {
 
 
 app.post('/upload', uploads.single('image'), async (req, res) => {
-  console.log(req.body);
+  (req.body);
   try {
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: 'uploads'
@@ -803,7 +803,7 @@ app.post('/upload', uploads.single('image'), async (req, res) => {
 });
 
 app.get('/destinations', async (req, res) => {
-  console.log("we are here")
+  ("we are here")
   try {
     const destinations = await Destination.find();
     res.json(destinations);
@@ -899,5 +899,5 @@ app.use("/", router);
 
 // Start the server
 app.listen(5000, () => {
-  console.log("Server running on port 5000");
+  ("Server running on port 5000");
 });
